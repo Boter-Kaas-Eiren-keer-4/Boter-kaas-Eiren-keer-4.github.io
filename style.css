@@ -1,0 +1,123 @@
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+    background-color: black;
+  }
+  
+  .board {
+    display: grid;
+    grid-template-columns: repeat(4, 100px);
+    grid-gap: 5px;
+    background-color: rgb(156, 7, 7);
+  }
+  
+  .cell {
+    width: 100px;
+    height: 100px;
+    border: 1px solid #b60e0e;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    cursor: pointer;
+    background-color: black;
+    transition: background-color 0.3;
+    color: #b60e0e;
+  }
+  .cell:hover { color: #000;
+    background-color: #ff0000
+   
+    
+    /* Voeg een achtergrondkleur toe tijdens hover */
+  }
+  /* Voeg stijl toe aan de huidige speler */
+  .cell.X {
+    color: #FFFF00
+  }
+  
+  .cell.O {
+    color: #FF1493;
+  }
+  
+  
+  button { background-color: #ff0000;
+    margin-top: 100px;
+    padding: 50px 10px;
+    font-size: 20px;
+    cursor: pointer;
+  }
+  .cell {
+    /* ... andere stijlen ... */
+    transition: background-color 0.3s, transform 0.3s; /* Voeg een overgang toe */
+  }
+  
+  .cell.new-move {
+    transform: scale(1.1); /* Pas de schaal aan voor het nieuwe symbool */
+  }
+  .board {
+    /* ... andere stijlen ... */
+    transition: transform 0.5s; /* Voeg een overgang toe */
+  }
+  
+  .board.reset {
+    transform: rotate(360deg); /* Bijvoorbeeld: draai het bord bij het resetten */
+  }
+/* Add this style for the confetti animation */
+@keyframes confetti {
+  0%, 100% {
+    transform: translateY(0) rotate(0);
+  }
+
+  25% {
+    transform: translateY(-700px) rotate(180deg);
+  }
+
+  50% {
+    transform: translateY(0) rotate(0);
+  }
+
+  75% {
+    transform: translateY(-700px) rotate(90deg);
+  }
+}
+
+.confetti {
+  width: 10px;
+  height: 10px;
+  background-color: #ff0000;
+  position: absolute;
+  z-index: 1000;
+}
+
+.cell {
+  /* ... andere stijlen ... */
+  transition: background-color 0.3s; /* Voeg een overgang toe */
+  .element {
+    background-color: #ff0000;
+    transition: background-color 0.3s;
+  }
+  
+  /* Pas de achtergrondkleur aan tijdens hover */
+  .element:hover {
+    background-color: #00ff00;
+  }
+}
+
+/* ... andere stijlen ... */
+
+#resetButton {
+  /* Voeg hier je aangepaste stijlen toe */
+  background-color: #00ff00; /* Bijvoorbeeld, groene achtergrondkleur */
+  color: #000; /* Tekstkleur aanpassen */
+  /* Voeg andere stijlen toe zoals padding, rand, etc. */
+}
+
+#resetButton:hover {
+  background-color: #ff0000; /* Bijvoorbeeld, rode achtergrondkleur bij hover */
+  color: #fff; /* Tekstkleur aanpassen bij hover */
+  /* Voeg andere stijlen toe voor hover-status */
+}

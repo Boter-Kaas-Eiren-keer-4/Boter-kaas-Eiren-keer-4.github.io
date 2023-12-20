@@ -405,13 +405,13 @@ function makeMove(row, col) {
     cell.classList.add('clicked');
 
     if (checkWinner()) {
-      document.getElementById('winnerMessage').innerText = "Even wachten...";
+      document.getElementById('winnerMessage').innerText = " ";
       setTimeout(function () {
         alert(currentPlayer === 'X' ? player1Name + ' wint!' : player2Name + ' wint!');
         resetGame();
       }, 100);
     } else if (isBoardFull()) {
-      document.getElementById('winnerMessage').innerText = "Even wachten...";
+      document.getElementById('winnerMessage').innerText = " ";
       setTimeout(function () {
         alert('Het is een gelijkspel!');
         resetGame();

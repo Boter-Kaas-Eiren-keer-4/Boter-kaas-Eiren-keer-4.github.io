@@ -92,7 +92,76 @@
       color: #d60606;
       box-shadow: 0 0 15px #000, 0 0 40px #000, 0 0 60px #000;
     }
-  
+    .modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.modal-content {
+  background-color: #000;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #a80a0a;
+  border-radius: 10px;
+  color: #fff;
+  text-align: center;
+}
+
+.close {
+  color: #a80a0a;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover {
+  color: #fff;
+  cursor: pointer;
+}
+/* Add this style to make the winner modal similar to the button */
+#winnerModal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+#winnerModal .modal-content {
+  background-color: #000;  /* Same background color as the button */
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #a80a0a;
+  border-radius: 10px;
+  color: #fff;
+  text-align: center;
+  box-shadow: 0 0 15px #ff0000, 0 0 40px #ff0000, 0 0 60px #ff0000; /* Same box shadow as the button */
+}
+
+
+#winnerModal .close {
+  color: #a80a0a;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+#winnerModal .close:hover {
+  color: #fff;
+  cursor: pointer;
+}
+
+
     @media screen and (max-width: 1200px) {
   .board {
     grid-template-columns: repeat(3, 1fr); /* Adjust columns for medium screens */
@@ -129,6 +198,8 @@
   margin: 0;
   background: #000;
   color: #fff;
+
+  
 }
 
 /* Responsive styles for the game board */
@@ -257,7 +328,12 @@ button:hover {
   <button onclick="resetGame()">Opnieuw spelen</button>
   <p id="winnerMessage"></p>
   <div id="confetti-container"></div>
-
+  <div id="winnerModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal()">&times;</span>
+      <p id="winnerText"></p>
+    </div>
+  </div>
   <script>
 
     let player1Name = prompt("Naam van Speler 1:");
@@ -347,7 +423,18 @@ function makeMove(row, col) {
   }
 }
 
+function showModal(winnerText) {
+      const modal = document.getElementById('winnerModal');
+      const winnerTextElement = document.getElementById('winnerText');
 
+      winnerTextElement.innerText = winnerText;
+      modal.style.display = 'block';
+    }
+
+    function closeModal() {
+      const modal = document.getElementById('winnerModal');
+      modal.style.display = 'none';
+    }
     
     function makeMove(row, col) {
       if (board[row][col] === '' && !isGameFinished()) {
@@ -358,7 +445,7 @@ function makeMove(row, col) {
         cell.classList.add('new-move');
 
         if (checkWinner()) {
-          document.getElementById('winnerMessage').innerText = "Even wachten...";
+          document.getElementById('winnerMessage').innerText = " ";
           setTimeout(function () {
             alert(currentPlayer === 'X' ? player1Name + ' wint!' : player2Name + ' wint!');
             resetGame();
@@ -428,20 +515,21 @@ function makeMove(row, col) {
     }
 
     function resetGame() {
-      currentPlayer = 'X';
-      board = Array.from({ length: 4 }, () => Array(4).fill(''));
-      document.getElementById('winnerMessage').innerText = "";
-      document.getElementById('board').classList.add('reset', 'win');
-      setTimeout(function () {
-        document.getElementById('board').classList.remove('reset', 'win');
-        document.getElementById('confetti-container').innerHTML = '';
-        printBoard();
-      }, 500);
+  currentPlayer = 'X';
+  board = Array.from({ length: 4 }, () => Array(4).fill(''));
+  document.getElementById('winnerMessage').innerText = "";
 
-      if (checkWinner()) {
-        createConfetti();
-      }
-    }
+  // Check for a winner
+  if (checkWinner()) {
+    showModal(currentPlayer === 'X' ? player1Name + ' wint!' : player2Name + ' wint!');
+    createConfetti();
+  } else if (isBoardFull()) {
+    showModal('Het is een gelijkspel!');
+  } else {
+    printBoard();
+  }
+}
+
 
     function highlightWinner(winningCells) {
       for (let cell of winningCells) {
@@ -478,4 +566,6 @@ function makeMove(row, col) {
 </body>
 
 </html>
+
+
 

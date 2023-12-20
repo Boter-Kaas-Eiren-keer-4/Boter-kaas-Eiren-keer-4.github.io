@@ -17,7 +17,7 @@
   height: 100vh;
   margin: 0;
   background: #000;
-  color: #fff;
+  color: #000
 }
 
 .board {
@@ -28,7 +28,12 @@
     margin-right: 20px; /* Add margin to the right side of the board */
 }
 
-  
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
     .cell {
       width: 100px;
       height: 100px;
@@ -125,6 +130,8 @@
   color: #fff;
   cursor: pointer;
 }
+
+
 /* Add this style to make the winner modal similar to the button */
 #winnerModal {
   display: none;
@@ -159,6 +166,45 @@
 #winnerModal .close:hover {
   color: #fff;
   cursor: pointer;
+}
+#introModal {
+      display: none;
+      position: fixed;
+      z-index: 1;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0, 0, 0, 0.7);
+    }
+
+    #introModal .modal-content {
+      background-color: rgba(12, 11, 11, 0.1); /* Red background with 80% opacity */
+      margin: 15% auto;
+      padding: 10px;
+      border: 10px solid #000;
+      border-radius: 10px;
+      color: #131212;
+      text-align: center;
+    }
+
+    #introModal .close {
+      color: #a80a0a;
+      font-size: 28px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    #introModal .close:hover {
+      color: #fff;
+    }
+
+    .custom-font {
+  font-family: 'Barrio', sans-serif;
+  color: #ff0000
+
+
 }
 
 
@@ -209,7 +255,7 @@
   grid-template-rows: repeat(4, 50px); /* 4 rows with fixed height */
   grid-gap: 10px; /* Add margin between cells */
   position: relative;
-  max-width: 91vw; /* Limit maximum width */
+  max-width: 100vh; /* Limit maximum width */
 }
 
 .cell {
@@ -324,6 +370,8 @@ button:hover {
 </head>
 
 <body>
+
+  <div class="container"></div>
   <div class="board" id="board"></div>
   <button onclick="resetGame()">Opnieuw spelen</button>
   <p id="winnerMessage"></p>
@@ -334,10 +382,37 @@ button:hover {
       <p id="winnerText"></p>
     </div>
   </div>
-  <script>
+  <div id="introModal">
+    <div class="modal-content">
+      <span class="close" onclick="closeIntroModal()">&times;</span>
+      <h1 class="custom-font">Welkom bij Boter, Kaas en Eieren maal 4!</h1>
+      <p class="custom-font">Stap binnen in de wereld van strategie en uitdaging, waar klassieke spellen een nieuwe wending krijgen. In dit vernieuwende spel draait alles om Boter, Kaas en Eieren, maar dan op een groter speelveld van 4 bij 4.</p>
+      <h2 class="custom-font">Hoe speel je ?</h2>
+      <p class="custom-font"><strong>Doel:</strong>  Het doel is eenvoudig - probeer vier van je symbolen op een rij te krijgen, of het nu horizontaal, verticaal of diagonaal is.</p>
+      <p class="custom-font"><strong>Spelverloop:</strong> Jij en je tegenstander plaatsen om de beurt je symbolen (X of O) op het bord. Denk goed na over je zetten en probeer de strategie van je tegenstander te doorgronden.</p>
+      <h3 class="custom-font">Ben je klaar voor de uitdaging? Laten we beginnen met het spel en zien wie de heerser wordt van Boter, Kaas en Eieren maal 4!. Click op het kruisje om verder te gaan. vervolgens ga Jij en je tegenstander je namen in typen en spelen maar!!!!</h3>
+      
+  </div>
 
-    let player1Name = prompt("Naam van Speler 1:");
-    let player2Name = prompt("Naam van Speler 2:");
+
+  
+  <script> 
+    // Function to open the introductory modal
+    function openIntroModal() {
+      document.getElementById('introModal').style.display = 'block';
+    }
+
+    // Function to close the introductory modal
+    function closeIntroModal() {
+      document.getElementById('introModal').style.display = 'none';
+
+      // After closing the intro modal, prompt for player names
+      let player1Name = prompt("Naam van Speler 1:");
+      let player2Name = prompt("Naam van Speler 2:");
+    }
+
+    // Open the introductory modal when the page loads
+    window.onload = openIntroModal;
 
     let currentPlayer = 'X';
     let board = Array.from({ length: 4 }, () => Array(4).fill(''));

@@ -25,15 +25,15 @@
   grid-template-columns: repeat(4, 100px);
   grid-gap: 10px;
   position: relative; 
-    margin-right: 20px; /* Add margin to the right side of the board */
+   /* Add margin to the right side of the board */
 }
 
 .container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
     .cell {
       width: 100px;
       height: 100px;
@@ -84,19 +84,14 @@
   
     button {
     position: absolute;
-      bottom: 0;
-      margin-bottom: 100px;
-      padding: 10px 50px 10px 50px;
-      font-family: 'Barrio';
-      font-size: 30px;
-      cursor: pointer;
-      box-shadow: 0 0 15px #ff0000, 0 0 40px #ff0000, 0 0 60px #ff0000;
-    }
-    button:hover {
-      background-color: #000;
-      color: #d60606;
-      box-shadow: 0 0 15px #000, 0 0 40px #000, 0 0 60px #000;
-    }
+    bottom: 0;
+    margin-bottom: 20px; /* Increase margin for the reset button */
+    padding: 10px 50px 10px 50px;
+    font-family: 'Barrio';
+    font-size: 30px;
+    cursor: pointer;
+    box-shadow: 0 0 15px #ff0000, 0 0 40px #ff0000, 0 0 60px #ff0000;
+  }
     .modal {
   display: none;
   position: fixed;
@@ -114,9 +109,11 @@
   margin: 15% auto;
   padding: 20px;
   border: 1px solid #a80a0a;
+  font-family: 'Barrio';
   border-radius: 10px;
-  color: #fff;
+  color: #ff0000;
   text-align: center;
+  font-size: 30px;
 }
 
 .close {
@@ -132,25 +129,27 @@
 }
 
 
-/* Add this style to make the winner modal similar to the button */
-#winnerModal {
-  display: none;
-  position: fixed;
-  z-index: 1;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-  background-color: rgba(0, 0, 0, 0.7);
+/* Adjust the width of the winnerModal */
+#winnerModal .modal-content {
+  background-color: #000;
+  margin: 15% auto;
+  padding: 10px;
+  border: 1px solid #a80a0a;
+  border-radius: 5px;
+  color: #ff0000;
+  text-align: center;
+  box-shadow: 0 0 15px #ff0000, 0 0 40px #ff0000, 0 0 60px #ff0000;
+  width: 60%; /* Adjust the width as needed, e.g., 60% */
 }
+
+
 #winnerModal .modal-content {
   background-color: #000;  /* Same background color as the button */
   margin: 15% auto;
-  padding: 20px;
+  padding: 10px;
   border: 1px solid #a80a0a;
-  border-radius: 10px;
-  color: #fff;
+  border-radius: 5px;
+  color: #ff0000;
   text-align: center;
   box-shadow: 0 0 15px #ff0000, 0 0 40px #ff0000, 0 0 60px #ff0000; /* Same box shadow as the button */
 }
@@ -159,14 +158,41 @@
 #winnerModal .close {
   color: #a80a0a;
   float: right;
-  font-size: 28px;
+  font-size: 40px;
   font-weight: bold;
 }
 
 #winnerModal .close:hover {
-  color: #fff;
+  color: #ff0000;
   cursor: pointer;
 }
+
+#drawModal .modal-content {
+  background-color: #000;
+  margin: 15% auto;
+  padding: 10px;
+  border: 1px solid #a80a0a;
+  border-radius: 5px;
+  color: #ff0000;
+  text-align: center;
+  box-shadow: 0 0 15px #ff0000, 0 0 40px #ff0000, 0 0 60px #ff0000;
+  width: 60%; /* Adjust the width as needed, e.g., 60% */
+}
+
+#drawModal .close {
+  color: #a80a0a;
+  float: right;
+  font-size: 40px;
+  font-weight: bold;
+}
+
+#drawModal .close:hover {
+  color: #ff0000;
+  cursor: pointer;
+}
+
+
+
 #introModal {
       display: none;
       position: fixed;
@@ -200,12 +226,48 @@
       color: #fff;
     }
 
+    .game-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+ 
+
+
     .custom-font {
   font-family: 'Barrio', sans-serif;
-  color: #ff0000
-
+  color: #ff0000;
+  font-size: 30px;
 
 }
+
+.confetti {
+  width: 10px;
+  height: 10px;
+  background-color: #ff0000;
+  position: absolute;
+  z-index: 1000;
+  animation: fall linear infinite;
+}
+
+@keyframes fall {
+  to {
+    transform: translateY(100vh);
+  }
+}
+
+#currentPlayer {
+    text-align: center;
+    font-size: 20px;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-bottom: 150px; /* Add margin below the current player text */
+  }
+
 
 
     @media screen and (max-width: 1200px) {
@@ -311,7 +373,12 @@ button:hover {
   color: #d60606;
   box-shadow: 0 0 15px #000, 0 0 40px #000, 0 0 60px #000;
 }
-
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
 
   #winnerMessage {
     font-size: 16px; /* Adjust the text size */
@@ -370,7 +437,13 @@ button:hover {
 </head>
 
 <body>
-
+  <div id="drawModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeDrawModal()">&times;</span>
+      <p id="drawText">Gelijk spel!</p>
+    </div>
+  </div>
+  <div id="currentPlayer" class="custom-font"></div>
   <div class="container"></div>
   <div class="board" id="board"></div>
   <button onclick="resetGame()">Opnieuw spelen</button>
@@ -381,13 +454,19 @@ button:hover {
       <span class="close" onclick="closeModal()">&times;</span>
       <p id="winnerText"></p>
     </div>
+    <div id="drawModal" class="modal">
+      <div class="modal-content">
+        <span class="close" onclick="closeDrawModal()">&times;</span>
+        <p id="drawText"></p>
+      </div>
+    </div>    
   </div>
   <div id="introModal">
     <div class="modal-content">
       <span class="close" onclick="closeIntroModal()">&times;</span>
       <h1 class="custom-font">Welkom bij Boter, Kaas en Eieren maal 4!</h1>
       <p class="custom-font">Stap binnen in de wereld van strategie en uitdaging, waar klassieke spellen een nieuwe wending krijgen. In dit vernieuwende spel draait alles om Boter, Kaas en Eieren, maar dan op een groter speelveld van 4 bij 4.</p>
-      <h2 class="custom-font">Hoe speel je ?</h2>
+      <h1 class="custom-font"><strong>speel je ?</strong> </h1>
       <p class="custom-font"><strong>Doel:</strong>  Het doel is eenvoudig - probeer vier van je symbolen op een rij te krijgen, of het nu horizontaal, verticaal of diagonaal is.</p>
       <p class="custom-font"><strong>Spelverloop:</strong> Jij en je tegenstander plaatsen om de beurt je symbolen (X of O) op het bord. Denk goed na over je zetten en probeer de strategie van je tegenstander te doorgronden.</p>
       <h3 class="custom-font">Ben je klaar voor de uitdaging? Laten we beginnen met het spel en zien wie de heerser wordt van Boter, Kaas en Eieren maal 4!. Click op het kruisje om verder te gaan. vervolgens ga Jij en je tegenstander je namen in typen en spelen maar!!!!</h3>
@@ -398,18 +477,46 @@ button:hover {
   
   <script> 
     // Function to open the introductory modal
-    function openIntroModal() {
-      document.getElementById('introModal').style.display = 'block';
-    }
+   // Declare player names globally
 
-    // Function to close the introductory modal
-    function closeIntroModal() {
-      document.getElementById('introModal').style.display = 'none';
+   
+let player1Name, player2Name;
 
-      // After closing the intro modal, prompt for player names
-      let player1Name = prompt("Naam van Speler 1:");
-      let player2Name = prompt("Naam van Speler 2:");
-    }
+// Function to open the introductory modal
+function openIntroModal() {
+  document.getElementById('introModal').style.display = 'block';
+}
+
+function closeIntroModal() {
+  document.getElementById('introModal').style.display = 'none';
+
+  // After closing the intro modal, prompt for player names
+  player1Name = prompt("Naam van Speler 1:");
+  player2Name = prompt("Naam van Speler 2:");
+
+  // Set the initial current player display
+const currentPlayerElement = document.getElementById('currentPlayer');
+currentPlayerElement.innerText = `${player1Name} is aan de beurt`;
+
+ 
+}
+
+function openDrawModal() {
+  const drawText = document.getElementById('drawText');
+  drawText.innerText = 'Gelijk spel!';
+  const drawModal = document.getElementById('drawModal');
+  drawModal.style.display = 'block';
+}
+
+function closeDrawModal() {
+  const drawModal = document.getElementById('drawModal');
+  drawModal.style.display = 'none';
+}
+
+
+
+// Rest of your existing code...
+
 
     // Open the introductory modal when the page loads
     window.onload = openIntroModal;
@@ -474,6 +581,15 @@ function makeMove(row, col) {
   if (board[row][col] === '' && !isGameFinished()) {
     board[row][col] = currentPlayer;
     printBoard();
+    if (isBoardFull() && !checkWinner()) {
+      setTimeout(function () {
+        openDrawModal();
+      }, 100);
+    }
+
+    // Set the current player after the move
+    const currentPlayerElement = document.getElementById('currentPlayer');
+    currentPlayerElement.innerText = `${currentPlayer === 'X' ? player2Name : player1Name} is aan de beurt`;
 
     const cell = document.querySelector(`#board .cell:nth-child(${row * 4 + col + 1})`);
     cell.classList.add('new-move');
@@ -481,10 +597,8 @@ function makeMove(row, col) {
 
     if (checkWinner()) {
       document.getElementById('winnerMessage').innerText = " ";
-      setTimeout(function () {
-        alert(currentPlayer === 'X' ? player1Name + ' wint!' : player2Name + ' wint!');
-        resetGame();
-      }, 100);
+      showModal(currentPlayer === 'X' ? `${player1Name} wint!` : `${player2Name} wint!`);
+      createConfetti();
     } else if (isBoardFull()) {
       document.getElementById('winnerMessage').innerText = " ";
       setTimeout(function () {
@@ -498,112 +612,143 @@ function makeMove(row, col) {
   }
 }
 
-function showModal(winnerText) {
-      const modal = document.getElementById('winnerModal');
-      const winnerTextElement = document.getElementById('winnerText');
 
-      winnerTextElement.innerText = winnerText;
-      modal.style.display = 'block';
-    }
+function showModal(winnerText) {
+  // Delay the modal display by 2 seconds
+  setTimeout(function () {
+    const modal = document.getElementById('winnerModal');
+    const winnerTextElement = document.getElementById('winnerText');
+
+    winnerTextElement.innerText = winnerText;
+    modal.style.display = 'block';
+  }, 1000); // 2000 milliseconds = 2 seconds
+}
+
+function closeDrawModal() {
+  const modal = document.getElementById('drawModal');
+  modal.style.display = 'none';
+}
 
     function closeModal() {
       const modal = document.getElementById('winnerModal');
       modal.style.display = 'none';
     }
     
+   
     function makeMove(row, col) {
-      if (board[row][col] === '' && !isGameFinished()) {
-        board[row][col] = currentPlayer;
-        printBoard();
-
-        const cell = document.querySelector(`#board .cell:nth-child(${row * 4 + col + 1})`);
-        cell.classList.add('new-move');
-
-        if (checkWinner()) {
-          document.getElementById('winnerMessage').innerText = " ";
-          setTimeout(function () {
-            alert(currentPlayer === 'X' ? player1Name + ' wint!' : player2Name + ' wint!');
-            resetGame();
-          }, 100);
-        } else if (isBoardFull()) {
-          document.getElementById('winnerMessage').innerText = " ";
-          setTimeout(function () {
-            alert('Het is een gelijkspel!');
-            resetGame();
-          }, 100);
-        } else {
-          currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
-        printBoard();}
-      }
+  if (board[row][col] === '' && !isGameFinished()) {
+    board[row][col] = currentPlayer;
+    printBoard();
+    if (isBoardFull() && !checkWinner()) {
+      setTimeout(function () {
+        openDrawModal();
+      }, 100);
     }
+
+    // Set the current player after the move
+    const currentPlayerElement = document.getElementById('currentPlayer');
+    currentPlayerElement.innerText = `${currentPlayer === 'X' ? player2Name : player1Name} is aan de beurt`;
+
+    const cell = document.querySelector(`#board .cell:nth-child(${row * 4 + col + 1})`);
+    cell.classList.add('new-move');
+    cell.classList.add('clicked');
+
+    if (checkWinner()) {
+      document.getElementById('winnerMessage').innerText = " ";
+      showModal(currentPlayer === 'X' ? `${player1Name} wint!` : `${player2Name} wint!`);
+      createConfetti();
+    } else if (isBoardFull()) {
+      document.getElementById('winnerMessage').innerText = " ";
+      setTimeout(function () {
+        alert('Het is een gelijkspel!');
+        resetGame();
+      }, 100);
+    } else {
+      currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
+      printBoard();
+    }
+  }
+}
+
+
+
+
 
     function isGameFinished() {
       return checkWinner() || isBoardFull();
     }
 
     function checkWinner() {
-      // Horizontale controle
-      for (let i = 0; i < 4; i++) {
-        if (board[i][0] !== '' &&
-          board[i][0] === board[i][1] &&
-          board[i][0] === board[i][2] &&
-          board[i][0] === board[i][3]) {
-          highlightWinner([[i, 0], [i, 1], [i, 2], [i, 3]]);
-          return true;
-        }
-      }
-
-      // Verticale controle
-      for (let j = 0; j < 4; j++) {
-        if (board[0][j] !== '' &&
-          board[0][j] === board[1][j] &&
-          board[0][j] === board[2][j] &&
-          board[0][j] === board[3][j]) {
-          highlightWinner([[0, j], [1, j], [2, j], [3, j]]);
-          return true;
-        }
-      }
-
-      // Diagonale controle (van linksboven naar rechtsonder)
-      if (board[0][0] !== '' &&
-        board[0][0] === board[1][1] &&
-        board[0][0] === board[2][2] &&
-        board[0][0] === board[3][3]) {
-        highlightWinner([[0, 0], [1, 1], [2, 2], [3, 3]]);
-        return true;
-      }
-
-      // Diagonale controle (van linksonder naar rechtsboven)
-      if (board[0][3] !== '' &&
-        board[0][3] === board[1][2] &&
-        board[0][3] === board[2][1] &&
-        board[0][3] === board[3][0]) {
-        highlightWinner([[0, 3], [1, 2], [2, 1], [3, 0]]);
-        return true;
-      }
-
-      return false;
+  // Horizontale controle
+  for (let i = 0; i < 4; i++) {
+    if (
+      board[i][0] !== '' &&
+      board[i][0] === board[i][1] &&
+      board[i][0] === board[i][2] &&
+      board[i][0] === board[i][3]
+    ) {
+      highlightWinner([[i, 0], [i, 1], [i, 2], [i, 3]]);
+      return true;
     }
+  }
 
-    function isBoardFull() {
-      return board.every(row => row.every(cell => cell !== ''));
+  // Verticale controle
+  for (let j = 0; j < 4; j++) {
+    if (
+      board[0][j] !== '' &&
+      board[0][j] === board[1][j] &&
+      board[0][j] === board[2][j] &&
+      board[0][j] === board[3][j]
+    ) {
+      highlightWinner([[0, j], [1, j], [2, j], [3, j]]);
+      return true;
     }
+  }
+
+  // Diagonale controle (van linksboven naar rechtsonder)
+  if (
+    board[0][0] !== '' &&
+    board[0][0] === board[1][1] &&
+    board[0][0] === board[2][2] &&
+    board[0][0] === board[3][3]
+  ) {
+    highlightWinner([[0, 0], [1, 1], [2, 2], [3, 3]]);
+    return true;
+  }
+
+  // Diagonale controle (van linksonder naar rechtsboven)
+  if (
+    board[0][3] !== '' &&
+    board[0][3] === board[1][2] &&
+    board[0][3] === board[2][1] &&
+    board[0][3] === board[3][0]
+  ) {
+    highlightWinner([[0, 3], [1, 2], [2, 1], [3, 0]]);
+    return true;
+  }
+
+  return false;
+}
+
+
+function isBoardFull() {
+  return board.every(row => row.every(cell => cell !== ''));
+}
+
 
     function resetGame() {
   currentPlayer = 'X';
   board = Array.from({ length: 4 }, () => Array(4).fill(''));
   document.getElementById('winnerMessage').innerText = "";
-
-  // Check for a winner
-  if (checkWinner()) {
-    showModal(currentPlayer === 'X' ? player1Name + ' wint!' : player2Name + ' wint!');
-    createConfetti();
-  } else if (isBoardFull()) {
-    showModal('Het is een gelijkspel!');
-  } else {
+  document.getElementById('board').classList.add('reset', 'win');
+  setTimeout(function () {
+    document.getElementById('board').classList.remove('reset', 'win');
+    document.getElementById('confetti-container').innerHTML = '';
     printBoard();
-  }
+  }, 500);
+  closeDrawModal(); // Close the draw modal when resetting the game
 }
+
 
 
     function highlightWinner(winningCells) {
@@ -615,23 +760,28 @@ function showModal(winnerText) {
     }
 
     function createConfetti() {
-      const confettiContainer = document.getElementById('confetti-container');
+  const confettiContainer = document.getElementById('confetti-container');
 
-      for (let i = 0; i < 200; i++) {
-        const confetti = document.createElement('div');
-        confetti.className = 'confetti';
-        confetti.style.left = Math.random() * window.innerWidth + 'px';
-        confetti.style.animationDuration = Math.random() * 2 + 1 + 's';
-        confetti.style.opacity = Math.random();
-        confettiContainer.appendChild(confetti);
+  for (let i = 0; i < 200; i++) {
+    const confetti = document.createElement('div');
+    confetti.className = 'confetti';
+    confetti.style.left = Math.random() * window.innerWidth + 'px';
+    confetti.style.top = '-10px'; // Set the initial position at the top
+    confetti.style.animationDuration = Math.random() * 2 + 1 + 's';
+    confetti.style.opacity = Math.random();
+    confettiContainer.appendChild(confetti);
+  }
 
-        confetti.addEventListener('animationend', () => {
-          confetti.remove();
-        });
-      }
-
-      console.log('Confetti created!');
+  confettiContainer.addEventListener('animationend', function (event) {
+    if (event.target.classList.contains('confetti')) {
+      event.target.remove();
     }
+  });
+
+  console.log('Confetti created!');
+}
+
+
 
 
     // Start het spel door het bord weer te geven
@@ -639,8 +789,4 @@ function showModal(winnerText) {
   </script>
   
 </body>
-
 </html>
-
-
-

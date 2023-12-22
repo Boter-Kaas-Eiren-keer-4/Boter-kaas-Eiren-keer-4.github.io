@@ -536,346 +536,362 @@
   <div id="introModal">
     <div class="modal-content">
       <span class="close" onclick="closeIntroModal()">&times;</span>
+
       <h1 class="custom-font">Welkom bij Boter, Kaas en Eieren maal 4!</h1>
-      <p class="custom-font">Stap binnen in de wereld van strategie en uitdaging, waar klassieke spellen een nieuwe
-        wending krijgen. In dit vernieuwende spel draait alles om Boter, Kaas en Eieren, maar dan op een groter
-        speelveld van 4 bij 4.</p>
-      <h1 class="custom-font"><strong>speel je ?</strong> </h1>
-      <p class="custom-font"><strong>Doel:</strong> Het doel is eenvoudig - probeer vier van je symbolen op een rij te
-        krijgen, of het nu horizontaal, verticaal of diagonaal is.</p>
-      <p class="custom-font"><strong>Spelverloop:</strong> Jij en je tegenstander plaatsen om de beurt je symbolen (X of
-        O) op het bord. Denk goed na over je zetten en probeer de strategie van je tegenstander te doorgronden.</p>
-      <h3 class="custom-font">Ben je klaar voor de uitdaging? Laten we beginnen met het spel en zien wie de heerser
-        wordt van Boter, Kaas en Eieren maal 4!. Click op het kruisje om verder te gaan. vervolgens ga Jij en je
-        tegenstander je namen in typen en spelen maar!!!!</h3>
 
+      <p class="custom-font">
+        Stap binnen in de wereld van strategie en uitdaging, waar klassieke spellen een nieuwe wending krijgen.
+        In dit vernieuwende spel draait alles om Boter, Kaas en Eieren, maar dan op een groter speelveld van 4 bij 4.
+      </p>
+
+      <h2 class="custom-font">Hoe Speel je?</h2>
+
+      <p class="custom-font">
+        <strong>Het doel:</strong> is eenvoudig - probeer vier van je symbolen op een rij te krijgen, of het nu
+        horizontaal, verticaal of diagonaal is.
+      </p>
+
+      <p class="custom-font">
+        <strong>Spelverloop:</strong> Jij en je tegenstander plaatsen om de beurt je symbolen (X of O) op het bord. Denk
+        goed na over je zetten en probeer de strategie van je tegenstander te doorgronden.
+      </p>
+
+      <h3 class="custom-font">
+        Ben je klaar voor de uitdaging? Laten we beginnen met het spel en zien wie de heerser wordt van Boter, Kaas en
+        Eieren maal 4!
+        Klik op het scherm om verder te gaan. Voer dan je naam en die van je tegenstander in om te beginnen!''
+      </h3>
     </div>
+  </div>
 
 
-    <!-- JavaScript-bestand voor de spellogica -->
-    <script>
-
-      // Variabelen om de namen van de spelers op te slaan
-      let player1Name, player2Name;
+  </div>
 
 
+  <!-- JavaScript-bestand voor de spellogica -->
+  <script>
 
-      // Functie om het introductiemodel te openen
-      function openIntroModal() {
-        document.getElementById('introModal').style.display = 'block';
-      }
-
-      // Functie om het introductiemodel te sluiten en de namen van de spelers in te voeren
-      function closeIntroModal() {
-        document.getElementById('introModal').style.display = 'none';
-        player1Name = prompt("Naam van Speler 1:");
-        player2Name = prompt("Naam van Speler 2:");
-
-        // De huidige speler weergeven op basis van de ingevoerde namen
-        const currentPlayerElement = document.getElementById('currentPlayer');
-        currentPlayerElement.innerText = `${player1Name} is aan de beurt`;
-
-
-      }
-
-      // Functie om het gelijkspelmodel te openen
-      function openDrawModal() {
-        const drawText = document.getElementById('drawText');
-        drawText.innerText = 'Gelijk spel!';
-        const drawModal = document.getElementById('drawModal');
-        drawModal.style.display = 'block';
-      }
-
-      // Functie om het gelijkspelmodel te sluiten
-      function closeDrawModal() {
-        const drawModal = document.getElementById('drawModal');
-        drawModal.style.display = 'none';
-      }
-
-
-      window.onload = openIntroModal;
-
-
-      let currentPlayer = 'X';
-      let board = Array.from({ length: 4 }, () => Array(4).fill(''));
-      function printBoard() {
-        const boardElement = document.getElementById('board');
-        boardElement.innerHTML = '';
-
-        for (let i = 0; i < 4; i++) {
-          for (let j = 0; j < 4; j++) {
-            const cell = document.createElement('div');
-            cell.className = 'cell';
-            cell.setAttribute('data-content', board[i][j]);
-            cell.innerText = board[i][j];
-            cell.style.color = board[i][j] === 'X' ? 'deeppink' : (board[i][j] === 'O' ? '#1a73e8' : '');
-
-
-            cell.addEventListener('mouseover', function () {
-              if (board[i][j] === '' && !isGameFinished()) {
-                cell.innerText = currentPlayer;
-                cell.style.color = 'black';
-              }
-            });
-
-
-            cell.addEventListener('mouseover', function () {
-              if (board[i][j] === '' && !isGameFinished()) {
-                cell.innerText = currentPlayer;
-                cell.style.color = 'black';
-                cell.style.boxShadow = '0 0 10px 5px red, 0 0 20px 10px red, 0 0 100px 15px red';
-              }
-            });
-
-
-            cell.addEventListener('mouseout', function () {
-              if (board[i][j] === '' && !isGameFinished()) {
-                cell.innerText = '';
-                cell.style.color = '';
-                cell.style.boxShadow = '';
-              }
-            });
+    // Variabelen om de namen van de spelers op te slaan
+    let player1Name, player2Name;
 
 
 
+    // Functie om het introductiemodel te openen
+    function openIntroModal() {
+      document.getElementById('introModal').style.display = 'block';
+    }
 
-            cell.onclick = function () {
-              makeMove(i, j);
-            };
+    // Functie om het introductiemodel te sluiten en de namen van de spelers in te voeren
+    function closeIntroModal() {
+      document.getElementById('introModal').style.display = 'none';
+      player1Name = prompt("Naam van Speler 1:");
+      player2Name = prompt("Naam van Speler 2:");
 
-            boardElement.appendChild(cell);
-          }
-        }
-      }
-
-      // Functie om een zet te maken en de logica van het spel uit te voeren
-      function makeMove(row, col) {
-        if (board[row][col] === '' && !isGameFinished()) {
-          board[row][col] = currentPlayer;
-          printBoard();
-          if (isBoardFull() && !checkWinner()) {
-            setTimeout(function () {
-              openDrawModal();
-            }, 100);
-          }
+      // De huidige speler weergeven op basis van de ingevoerde namen
+      const currentPlayerElement = document.getElementById('currentPlayer');
+      currentPlayerElement.innerText = `${player1Name} is aan de beurt`;
 
 
-          const currentPlayerElement = document.getElementById('currentPlayer');
-          currentPlayerElement.innerText = `${currentPlayer === 'X' ? player2Name : player1Name} is aan de beurt`;
+    }
 
-          const cell = document.querySelector(`#board .cell:nth-child(${row * 4 + col + 1})`);
-          cell.classList.add('new-move');
-          cell.classList.add('clicked');
 
-          if (checkWinner()) {
-            document.getElementById('winnerMessage').innerText = " ";
-            showModal(currentPlayer === 'X' ? `${player1Name} wint!` : `${player2Name} wint!`);
-            createConfetti();
-          } else if (isBoardFull()) {
-            document.getElementById('winnerMessage').innerText = " ";
-            setTimeout(function () {
-              alert('Het is een gelijkspel!');
-              resetGame();
-            }, 100);
-          } else {
-            currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
-            printBoard();
-          }
-        }
-      }
+    // Voeg een event listener toe om het introductiemodel te sluiten bij aanraking
+    document.getElementById('introModal').addEventListener('click', function () {
+      closeIntroModal();
+    });
 
-      // Functie om het winnaarsmodel weer te geven
-      function showModal(winnerText) {
-        setTimeout(function () {
-          const modal = document.getElementById('winnerModal');
-          const winnerTextElement = document.getElementById('winnerText');
-
-          winnerTextElement.innerText = winnerText;
-          modal.style.display = 'block';
-        }, 1000); // 2000 milliseconnde = 2 seconde
-      }
-
-      // Functie om het winnaarsmodel te sluiten
-      function closeDrawModal() {
-        const modal = document.getElementById('drawModal');
-        modal.style.display = 'none';
-      }
-      // Functie om het winnaarsmodel te sluiten
-      function closeModal() {
-        const modal = document.getElementById('winnerModal');
-        modal.style.display = 'none';
-      }
-
-      // Functie om een zet te maken en de logica van het spel uit te voeren
-      function makeMove(row, col) {
-        // Code om een zet te maken en de spellogica uit te voeren
-        if (board[row][col] === '' && !isGameFinished()) {
-          board[row][col] = currentPlayer;
-          printBoard();
-          if (isBoardFull() && !checkWinner()) {
-            setTimeout(function () {
-              openDrawModal();
-            }, 100);
-            // Event listener voor het maken van een zet bij het klikken op een cel
-          }
-
-          const currentPlayerElement = document.getElementById('currentPlayer');
-          currentPlayerElement.innerText = `${currentPlayer === 'X' ? player2Name : player1Name} is aan de beurt`;
-
-          const cell = document.querySelector(`#board .cell:nth-child(${row * 4 + col + 1})`);
-          cell.classList.add('new-move');
-          cell.classList.add('clicked');
-
-          if (checkWinner()) {
-            document.getElementById('winnerMessage').innerText = " ";
-            showModal(currentPlayer === 'X' ? `${player1Name} wint!` : `${player2Name} wint!`);
-            createConfetti();
-          } else if (isBoardFull()) {
-            document.getElementById('winnerMessage').innerText = " ";
-            setTimeout(function () {
-              alert('Het is een gelijkspel!');
-              resetGame();
-            }, 100);
-          } else {
-            currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
-            printBoard();
-          }
-        }
-      }
+    // Verwijder het onclick attribuut van de sluitknop binnen het model
+    document.querySelector('#introModal .close').onclick = null;
 
 
 
+    // Functie om het gelijkspelmodel te openen
+    function openDrawModal() {
+      const drawText = document.getElementById('drawText');
+      drawText.innerText = 'Gelijk spel!';
+      const drawModal = document.getElementById('drawModal');
+      drawModal.style.display = 'block';
+    }
 
-      // Functie om te controleren of het spel is afgelopen (gewonnen of gelijkspel)
-      function isGameFinished() {
-        return checkWinner() || isBoardFull();
-      }
-
-      // Functie om te controleren of een speler heeft gewonnen
-      function checkWinner() {
-
-        for (let i = 0; i < 4; i++) {
-          if (
-            board[i][0] !== '' &&
-            board[i][0] === board[i][1] &&
-            board[i][0] === board[i][2] &&
-            board[i][0] === board[i][3]
-          ) {
-            highlightWinner([[i, 0], [i, 1], [i, 2], [i, 3]]);
-            return true;
-          }
-        }
+    // Functie om het gelijkspelmodel te sluiten
+    function closeDrawModal() {
+      const drawModal = document.getElementById('drawModal');
+      drawModal.style.display = 'none';
+    }
 
 
+    window.onload = openIntroModal;
+
+
+    let currentPlayer = 'X';
+    let board = Array.from({ length: 4 }, () => Array(4).fill(''));
+    function printBoard() {
+      const boardElement = document.getElementById('board');
+      boardElement.innerHTML = '';
+
+      for (let i = 0; i < 4; i++) {
         for (let j = 0; j < 4; j++) {
-          if (
-            board[0][j] !== '' &&
-            board[0][j] === board[1][j] &&
-            board[0][j] === board[2][j] &&
-            board[0][j] === board[3][j]
-          ) {
-            highlightWinner([[0, j], [1, j], [2, j], [3, j]]);
-            return true;
-          }
+          const cell = document.createElement('div');
+          cell.className = 'cell';
+          cell.setAttribute('data-content', board[i][j]);
+          cell.innerText = board[i][j];
+          cell.style.color = board[i][j] === 'X' ? 'deeppink' : (board[i][j] === 'O' ? '#1a73e8' : '');
+
+
+          cell.addEventListener('mouseover', function () {
+            if (board[i][j] === '' && !isGameFinished()) {
+              cell.innerText = currentPlayer;
+              cell.style.color = 'black';
+            }
+          });
+
+
+          cell.addEventListener('mouseover', function () {
+            if (board[i][j] === '' && !isGameFinished()) {
+              cell.innerText = currentPlayer;
+              cell.style.color = 'black';
+              cell.style.boxShadow = '0 0 10px 5px red, 0 0 20px 10px red, 0 0 100px 15px red';
+            }
+          });
+
+
+          cell.addEventListener('mouseout', function () {
+            if (board[i][j] === '' && !isGameFinished()) {
+              cell.innerText = '';
+              cell.style.color = '';
+              cell.style.boxShadow = '';
+            }
+          });
+
+
+
+
+          cell.onclick = function () {
+            makeMove(i, j);
+          };
+
+          boardElement.appendChild(cell);
         }
-
-
-        if (
-          board[0][0] !== '' &&
-          board[0][0] === board[1][1] &&
-          board[0][0] === board[2][2] &&
-          board[0][0] === board[3][3]
-        ) {
-          highlightWinner([[0, 0], [1, 1], [2, 2], [3, 3]]);
-          return true;
-        }
-
-
-        if (
-          board[0][3] !== '' &&
-          board[0][3] === board[1][2] &&
-          board[0][3] === board[2][1] &&
-          board[0][3] === board[3][0]
-        ) {
-          highlightWinner([[0, 3], [1, 2], [2, 1], [3, 0]]);
-          return true;
-        }
-
-        return false;
       }
+    }
+
+    // Functie om een zet te maken en de logica van het spel uit te voeren
+    function makeMove(row, col) {
+      if (board[row][col] === '' && !isGameFinished()) {
+        board[row][col] = currentPlayer;
+        printBoard();
+        if (isBoardFull() && !checkWinner()) {
+          setTimeout(function () {
+            openDrawModal();
+          }, 100);
+        }
 
 
-      function isBoardFull() {
-        return board.every(row => row.every(cell => cell !== ''));
-      }
+        const currentPlayerElement = document.getElementById('currentPlayer');
+        currentPlayerElement.innerText = `${currentPlayer === 'X' ? player2Name : player1Name} is aan de beurt`;
 
-      // Functie om het spel te resetten
-      function resetGame() {
-        currentPlayer = 'X';
-        board = Array.from({ length: 4 }, () => Array(4).fill(''));
-        document.getElementById('winnerMessage').innerText = "";
-        document.getElementById('board').classList.add('reset', 'win');
-        setTimeout(function () {
-          document.getElementById('board').classList.remove('reset', 'win');
-          document.getElementById('confetti-container').innerHTML = '';
+        const cell = document.querySelector(`#board .cell:nth-child(${row * 4 + col + 1})`);
+        cell.classList.add('new-move');
+        cell.classList.add('clicked');
+
+        if (checkWinner()) {
+          document.getElementById('winnerMessage').innerText = " ";
+          showModal(currentPlayer === 'X' ? `${player1Name} wint!` : `${player2Name} wint!`);
+          createConfetti();
+        } else if (isBoardFull()) {
+          document.getElementById('winnerMessage').innerText = " ";
+          setTimeout(function () {
+            alert('Het is een gelijkspel!');
+            resetGame();
+          }, 100);
+        } else {
+          currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
           printBoard();
-        }, 500);
-        closeDrawModal();
+        }
+      }
+    }
+
+    // Functie om het winnaarsmodel weer te geven
+    function showModal(winnerText) {
+      setTimeout(function () {
+        const modal = document.getElementById('winnerModal');
+        const winnerTextElement = document.getElementById('winnerText');
+
+        winnerTextElement.innerText = winnerText;
+        modal.style.display = 'block';
+      }, 1000); // 2000 milliseconnde = 2 seconde
+    }
+
+    // Functie om het winnaarsmodel te sluiten
+    function closeDrawModal() {
+      const modal = document.getElementById('drawModal');
+      modal.style.display = 'none';
+    }
+    // Functie om het winnaarsmodel te sluiten
+    function closeModal() {
+      const modal = document.getElementById('winnerModal');
+      modal.style.display = 'none';
+    }
+
+    // Functie om een zet te maken en de logica van het spel uit te voeren
+    function makeMove(row, col) {
+      // Code om een zet te maken en de spellogica uit te voeren
+      if (board[row][col] === '' && !isGameFinished()) {
+        board[row][col] = currentPlayer;
+        printBoard();
+        if (isBoardFull() && !checkWinner()) {
+          setTimeout(function () {
+            openDrawModal();
+          }, 100);
+          // Event listener voor het maken van een zet bij het klikken op een cel
+        }
+
+        const currentPlayerElement = document.getElementById('currentPlayer');
+        currentPlayerElement.innerText = `${currentPlayer === 'X' ? player2Name : player1Name} is aan de beurt`;
+
+        const cell = document.querySelector(`#board .cell:nth-child(${row * 4 + col + 1})`);
+        cell.classList.add('new-move');
+        cell.classList.add('clicked');
+
+        if (checkWinner()) {
+          document.getElementById('winnerMessage').innerText = " ";
+          showModal(currentPlayer === 'X' ? `${player1Name} wint!` : `${player2Name} wint!`);
+          createConfetti();
+        } else if (isBoardFull()) {
+          document.getElementById('winnerMessage').innerText = " ";
+          setTimeout(function () {
+            alert('Het is een gelijkspel!');
+            resetGame();
+          }, 100);
+        } else {
+          currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
+          printBoard();
+        }
+      }
+    }
+
+
+
+
+    // Functie om te controleren of het spel is afgelopen (gewonnen of gelijkspel)
+    function isGameFinished() {
+      return checkWinner() || isBoardFull();
+    }
+
+    // Functie om te controleren of een speler heeft gewonnen
+    function checkWinner() {
+
+      for (let i = 0; i < 4; i++) {
+        if (
+          board[i][0] !== '' &&
+          board[i][0] === board[i][1] &&
+          board[i][0] === board[i][2] &&
+          board[i][0] === board[i][3]
+        ) {
+          highlightWinner([[i, 0], [i, 1], [i, 2], [i, 3]]);
+          return true;
+        }
       }
 
 
-      // JavaScript voor het handelen van de 'click on modal' overlay
-      document.body.addEventListener('click', function (event) {
-        if (event.target.closest('#introModal')) {
-          closeModal();
+      for (let j = 0; j < 4; j++) {
+        if (
+          board[0][j] !== '' &&
+          board[0][j] === board[1][j] &&
+          board[0][j] === board[2][j] &&
+          board[0][j] === board[3][j]
+        ) {
+          highlightWinner([[0, j], [1, j], [2, j], [3, j]]);
+          return true;
+        }
+      }
+
+
+      if (
+        board[0][0] !== '' &&
+        board[0][0] === board[1][1] &&
+        board[0][0] === board[2][2] &&
+        board[0][0] === board[3][3]
+      ) {
+        highlightWinner([[0, 0], [1, 1], [2, 2], [3, 3]]);
+        return true;
+      }
+
+
+      if (
+        board[0][3] !== '' &&
+        board[0][3] === board[1][2] &&
+        board[0][3] === board[2][1] &&
+        board[0][3] === board[3][0]
+      ) {
+        highlightWinner([[0, 3], [1, 2], [2, 1], [3, 0]]);
+        return true;
+      }
+
+      return false;
+    }
+
+
+    function isBoardFull() {
+      return board.every(row => row.every(cell => cell !== ''));
+    }
+
+    // Functie om het spel te resetten
+    function resetGame() {
+      currentPlayer = 'X';
+      board = Array.from({ length: 4 }, () => Array(4).fill(''));
+      document.getElementById('winnerMessage').innerText = "";
+      document.getElementById('board').classList.add('reset', 'win');
+      setTimeout(function () {
+        document.getElementById('board').classList.remove('reset', 'win');
+        document.getElementById('confetti-container').innerHTML = '';
+        printBoard();
+      }, 500);
+      closeDrawModal();
+    }
+
+
+
+
+
+    // Functie om de winnende cellen te markeren
+    function highlightWinner(winningCells) {
+      for (let cell of winningCells) {
+        const [row, col] = cell;
+        const cellElement = document.querySelector(`#board .cell:nth-child(${row * 4 + col + 1})`);
+        cellElement.classList.add('win');
+      }
+    }
+
+    // Functie om winnende cellen te markeren en confetti weer te geven bij winst
+    function createConfetti() {
+      const confettiContainer = document.getElementById('confetti-container');
+
+      for (let i = 0; i < 200; i++) {
+        const confetti = document.createElement('div');
+        confetti.className = 'confetti';
+        confetti.style.left = Math.random() * window.innerWidth + 'px';
+        confetti.style.top = '-15px';
+        confetti.style.animationDuration = Math.random() * 2 + 1 + 's';
+        confetti.style.opacity = Math.random();
+        confettiContainer.appendChild(confetti);
+      }
+
+      confettiContainer.addEventListener('animationend', function (event) {
+        if (event.target.classList.contains('confetti')) {
+          event.target.remove();
         }
       });
 
-      // JavaScript function om de intro weg te clicken
-      function closeModal() {
-        document.getElementById('introModal').style.display = 'none';
-      }
-
-
-
-      // Functie om de winnende cellen te markeren
-      function highlightWinner(winningCells) {
-        for (let cell of winningCells) {
-          const [row, col] = cell;
-          const cellElement = document.querySelector(`#board .cell:nth-child(${row * 4 + col + 1})`);
-          cellElement.classList.add('win');
-        }
-      }
-
-      // Functie om winnende cellen te markeren en confetti weer te geven bij winst
-      function createConfetti() {
-        const confettiContainer = document.getElementById('confetti-container');
-
-        for (let i = 0; i < 200; i++) {
-          const confetti = document.createElement('div');
-          confetti.className = 'confetti';
-          confetti.style.left = Math.random() * window.innerWidth + 'px';
-          confetti.style.top = '-10px';
-          confetti.style.animationDuration = Math.random() * 2 + 1 + 's';
-          confetti.style.opacity = Math.random();
-          confettiContainer.appendChild(confetti);
-        }
-
-        confettiContainer.addEventListener('animationend', function (event) {
-          if (event.target.classList.contains('confetti')) {
-            event.target.remove();
-          }
-        });
-
-        console.log('Confetti created!');
-      }
+      console.log('Confetti created!');
+    }
 
 
 
 
-      // Start het spel door het bord weer te geven
-      printBoard();
-    </script>
+    // Start het spel door het bord weer te geven
+    printBoard();
+  </script>
 
 </body>
 

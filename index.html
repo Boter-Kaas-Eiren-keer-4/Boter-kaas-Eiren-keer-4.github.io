@@ -261,15 +261,20 @@
 #currentPlayer {
   position: absolute;
     bottom: 0;
-    margin-bottom: 70px; /* Increase margin for the reset button */
+    margin-bottom: 150px; /* Increase margin for the reset button */
     padding: 10px 50px 10px 50px;
     font-family: 'Barrio';
     color:#ff0000;
   }
   
+  @media screen and (max-width: 600px) {
+  #currentPlayer {
+    margin-bottom: 50px; /* Adjust margin for smaller screens */
+    padding: 5px 20px 5px 20px; /* Adjust padding for smaller screens */
+    font-size: 16px; /* Adjust font size for smaller screens */
+  }
+}
   
-   
-    font-size: 30px;
 
     @media screen and (max-width: 1200px) {
   .board {

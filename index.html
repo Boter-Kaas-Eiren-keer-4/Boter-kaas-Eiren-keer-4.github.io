@@ -224,40 +224,40 @@
       cursor: pointer;
     }
 
-/* Opmaak voor het introModal */
-#introModal {
-  display: none;
-  position: fixed;
-  z-index: 1;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-  background-color: rgba(0, 0, 0, 0.7);
-}
+    /* Opmaak voor het introModal */
+    #introModal {
+      display: none;
+      position: fixed;
+      z-index: 1;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0, 0, 0, 0.7);
+    }
 
-/* Opmaak voor de inhoud binnen het introModal */
-#introModal .modal-content {
-  background-color: rgba(12, 11, 11, 0.1);
-  margin: 15% auto;
-  padding: 10px;
-  border: 10px solid #000;
-  border-radius: 10px;
-  color: #131212;
-  text-align: center;
-}
+    /* Opmaak voor de inhoud binnen het introModal */
+    #introModal .modal-content {
+      background-color: rgba(12, 11, 11, 0.1);
+      margin: 15% auto;
+      padding: 10px;
+      border: 10px solid #000;
+      border-radius: 10px;
+      color: #131212;
+      text-align: center;
+    }
 
-#introModal .close {
-  color: #a80a0a;
-  font-size: 28px;
-  font-weight: bold;
-  cursor: pointer;
-}
+    #introModal .close {
+      color: #a80a0a;
+      font-size: 28px;
+      font-weight: bold;
+      cursor: pointer;
+    }
 
-#introModal .close:hover {
-  color: #fff;
-}
+    #introModal .close:hover {
+      color: #fff;
+    }
 
 
     /* Aanvullende opmaak voor de game-container */
@@ -824,17 +824,17 @@
       }
 
 
-      // JavaScript for handling click on modal overlay
-document.getElementById('introModal').addEventListener('click', function (event) {
-  if (event.target === this) {
-    closeModal();
-  }
-});
+      // JavaScript voor het handelen van de 'click on modal' overlay
+      document.body.addEventListener('click', function (event) {
+        if (event.target.closest('#introModal')) {
+          closeModal();
+        }
+      });
 
-// JavaScript function to close the modal
-function closeModal() {
-  document.getElementById('introModal').style.display = 'none';
-}
+      // JavaScript function om de intro weg te clicken
+      function closeModal() {
+        document.getElementById('introModal').style.display = 'none';
+      }
 
 
 
